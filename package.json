@@ -1,0 +1,31 @@
+{
+  "name": "vegas-scraper",
+  "version": "1.0.0",
+  "description": "vegas scraper",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/team-blackhole/vegas-scraper.git"
+  },
+  "author": "Pelly Ryu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/team-blackhole/vegas-scraper/issues"
+  },
+  "homepage": "https://github.com/team-blackhole/vegas-scraper#readme",
+  "devDependencies": {
+    "eslint": "latest",
+    "eslint-config-standard": "latest",
+    "eslint-plugin-promise": "latest",
+    "eslint-plugin-standard": "latest",
+    "mocha": "latest",
+    "standard": "latest"
+  },
+  "dependencies": {
+    "request": "^2.83.0"
+  }
+}
