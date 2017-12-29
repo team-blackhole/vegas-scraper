@@ -1,0 +1,4 @@
+{
+  "GCLOUD_PROJECT": "vegas-scraper",
+  "DATA_BACKEND": "datastore"
+}
