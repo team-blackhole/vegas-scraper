@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
+    "debug": "node $NODE_DEBUG_OPTION app.js",
     "test": "mocha"
   },
   "repository": {
