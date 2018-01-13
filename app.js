@@ -8,19 +8,27 @@ const Datastore = require('@google-cloud/datastore')
 const config = require('./config')
 const cache = require('./cache')
 
-const btcCache = new cache.CompleteOrdersCache()
+// noinspection JSUnresolvedFunction
+const datastore = Datastore({
+  projectId: config.get('GCLOUD_PROJECT')
+})
 
-const URL_BTC_COINONE_RECENT_COMPLETE_OREDERS = 'https://api.coinone.co.kr/trades/'
+const btcCache = new cache.CompleteOrdersCache('btc', datastore)
 
-new CronJob('*/10 * * * * *', () => {
-  request(URL_BTC_COINONE_RECENT_COMPLETE_OREDERS, (error, response, body) => {
-    // error
+const URL_BTC_COINONE_RECENT_COMPLETE_ORDERS = 'https://api.coinone.co.kr/trades/'
+
+new CronJob('*/30 * * * * *', () => {
+  request(URL_BTC_COINONE_RECENT_COMPLETE_ORDERS, (error, response, body) => {
     // response && response.statusCode
-    // body
+    if (response.statusCode !== 200) {
+      console.log('Error : response is not ok - status: ' + response.statusCode)
+    }
 
-    // check how many entities are duplicated.
     const jsonBody = JSON.parse(body)
     const result = btcCache.update(jsonBody['completeOrders'])
-    console.log(result)
+
+    if (result.cacheSizeBefore > 10000) {
+      btcCache.emit()
+    }
   })
 }, null, true, 'Asia/Seoul')
